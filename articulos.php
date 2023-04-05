@@ -12,43 +12,37 @@
 	<a href="index.php"> Volver al index.php</a>
 	<?php
 	include "funciones.php";
-	if (isset($_COOKIE['userLoggedIn'])) {  // Comprobando si el acceso fue realizado por el usuario superadmin le
+	if (isset($_COOKIE['userLoggedIn'])) {  // Comprobando quien realiza el acceso.
 		$userAcces = $_COOKIE['userLoggedIn'];
-		echo '<br>Tipo de usuario ' . $userAcces;
+		echo '<br>Tipo de usuario ' . $userAcces . '<br>';
 		if ($userAcces == 'registrado' || $userAcces == 'autorizado') {
-			/*echo '<br>usuario apto lara listar ' . $userAcces;*/
 			$autorizado = true;
 		} else {
 			echo '<br>No tiene permisos de acceso.';
 			$autorizado = false;
 		}
-
 		if ($autorizado) {
-			$conn = crearConexion();
-			$consulta =	"SELECT product.id, product.name, product.cost, product.price, product.category_id FROM product";
-			$resultado = mysqli_query($conn, $consulta);
-			echo "
-			<h1>Lista de artículos</h1>
-			<table border='1' cellpadding='5' cellspacing='0'>
-				<tr>
-					<th>ID</th>
-					<th>Nombre</th>
-					<th>Coste</th>
-					<th>Precio</th>
-					<th>Categoria</th>
-					<th>Acciones</th>
-				</tr>
-				";
-			while ($elementos = mysqli_fetch_array($resultado)) {
-				echo '<tr>';
-				echo "<td>" . $elementos['id'] . "</td>";
-				echo "<td>" . $elementos['name'] . "</td>";
-				echo "<td>" . $elementos['cost'] . "</td>";
-				echo "<td>" . $elementos['price'] . "</td>";
-				echo "<td>" . $elementos['category_id'] . "</td>";
-				echo '</tr>';
+			if (!isset($_GET["orden"])) { /* Si no hay definido un orden */
+				$orden = "name"; /* Ordenar por nombre */
+			} else {
+				/* 
+					Tomamos el valor de la variable orden pasada en el index.php.
+					Solo se comprueba el valor de $orden,
+					asumiendo que tiene uno (articulos.php?orden=loquesea).
+					No contempla valores vacios como articulos.php?orden
+				*/
+				$orden = $_GET["orden"];
 			}
-			echo "</table>";
+			/* 
+				Si tenemos permiso de management, antes de 
+				imprimir los listados, meter enlace para añadir producto
+				mediante get.
+			*/
+
+			if (getPermisos() == 1)
+				echo "<a href='formArticulos.php?accion=annadir'>Añadir producto</a>";
+
+			pintaProductos($orden);
 		}
 	}
 	?>

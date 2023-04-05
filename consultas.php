@@ -54,7 +54,6 @@ function esSuperadmin($nombre, $correo)
 function getPermisos()
 {
 	// Completar...	
-	// Completar...	
 	$conn = crearConexion();
 	$consulta = "SELECT management FROM setup";
 	$resultado = mysqli_fetch_assoc(mysqli_query($conn, $consulta));
@@ -84,10 +83,15 @@ function getCategorias()
 	// Completar...	
 }
 
-
 function getListaUsuarios()
 {
 	// Completar...	
+	$conn = crearConexion();
+	$consulta =	"SELECT user.id, user.email, user.full_name, user.enabled FROM user";
+	$resultado = mysqli_query($conn, $consulta);
+
+	cerrarConexion($conn);
+	return $resultado;
 }
 
 

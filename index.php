@@ -19,7 +19,7 @@
 
 
 	<?php
-	// http://localhost/paceservidor/pacDesarrolloServidor/
+	// http://localhost/paceservidor/pacDesarrolloServidor2/
 
 
 	include "consultas.php";
@@ -47,7 +47,7 @@
 			case $userState[2]: // Autorizado
 				$id = 2;
 				echo '<br> Bienvenido ' . $usuario . '. Es usuario ' . '\'' . $userState[$id] . '\'' .
-					' su enlace para administrar artículos es: <a href=\'articulos.php\'>articulos.php</a>';
+					' su enlace para administrar artículos es: <a href=\'articulos.php?orden=name\'>articulos.php</a>';
 				break;
 			default: // Usuario no autorizado
 				$id = 3;
@@ -56,7 +56,6 @@
 		}
 
 		setcookie("userLoggedIn", $userState[$id], time() + 3600); // valor 36 = 0.6 minutos. Usar para debug.
-
 	}
 
 	?>
