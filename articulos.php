@@ -8,13 +8,13 @@
 </head>
 
 <body>
-
-	<a href="index.php"> Volver al index.php</a>
+	<h1>Lista de artículos </h1>
 	<?php
 	include "funciones.php";
+
 	if (isset($_COOKIE['userLoggedIn'])) {  // Comprobando quien realiza el acceso.
 		$userAcces = $_COOKIE['userLoggedIn'];
-		echo '<br>Tipo de usuario ' . $userAcces . '<br>';
+		/*echo '<br>Tipo de usuario ' . $userAcces . '<br>';*/
 		if ($userAcces == 'registrado' || $userAcces == 'autorizado') {
 			$autorizado = true;
 		} else {
@@ -44,8 +44,11 @@
 
 			pintaProductos($orden);
 		}
+	} else {
+		echo "No tiene permisos para estar aquí.";
 	}
 	?>
+	<a href="index.php">Volver al inicio.</a>
 
 </body>
 

@@ -23,34 +23,39 @@
 			echo '<br>No tiene permisos de acceso.';
 			$autorizado = false;
 		}
+	} else {
+		$autorizado = false;
+		echo "<h2>No tiene permisos para estar aquí</h2>";
+		echo "<a href='index.php'>Volver al index</a>";
 	}
 	if ($autorizado) {
-		$acciones = $_GET['accion']; /* Localizar la accion */
-		if ($acciones == 'annadir') {
+		if (isset($_GET['accion'])) {
+			$acciones = $_GET['accion']; /* Localizar la accion */
+			if ($acciones == 'annadir') {
 
-			echo "&#9484";
-			for ($i = 0; $i < 10; $i++)
-				echo "&#9472";
+				echo "&#9484";
+				for ($i = 0; $i < 10; $i++)
+					echo "&#9472";
 
-			echo "
+				echo "
 			<form action = '#'>
 			<label>&#9474&nbsp&nbsp&nbspNombre </label><input type='text' name='nombre' size='20'><br>&#9474<br>
 			<label>&#9474&nbsp&nbsp&nbspCoste </label><input type='text' name='coste' size='22'><br>&#9474<br>
 			<label>&#9474&nbsp&nbsp&nbspPrecio </label><input type='text' name='precio' size='21'><br>&#9474<br>
 			<label>&#9474&nbsp&nbsp&nbspCategoria </label><input type='text' name='categoria' size='18'><br>&#9474<br>
 			";
-/*			&#9474&nbsp&nbsp&nbsp<input type='submit' name='sendForm' value='Añadir'>*/
-			echo "&#9474";
-			for ($i = 0; $i < 50; $i++)
-				echo "&nbsp";
-			echo "<input type='submit' name='sendForm' value='Añadir'>
+				/*			&#9474&nbsp&nbsp&nbsp<input type='submit' name='sendForm' value='Añadir'>*/
+				echo "&#9474";
+				for ($i = 0; $i < 50; $i++)
+					echo "&nbsp";
+				echo "<input type='submit' name='sendForm' value='Añadir'>
 			</form>
 			";
-			
-			echo "&#9492";
-			for ($i = 0; $i < 10; $i++)
-				echo "&#9472";
 
+				echo "&#9492";
+				for ($i = 0; $i < 10; $i++)
+					echo "&#9472";
+			}
 		}
 	}
 

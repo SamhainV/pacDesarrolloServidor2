@@ -36,7 +36,7 @@
 			case $userState[0]: // SuperAdmin
 				$id = 0;
 				echo '<br> Bienvenido ' . $usuario . '. Es usuario ' . '\'' . $userState[$id] . '\' . ';
-				echo "<a href = 'usuarios.php'>Enlace para administrar usuarios.</a>";
+				echo "<a href = 'usuarios.php'>Pulse aquí,</a> para administrar usuarios.";
 				break;
 			case $userState[1]: // Registrado
 				$id = 1;
@@ -47,7 +47,7 @@
 			case $userState[2]: // Autorizado
 				$id = 2;
 				echo '<br> Bienvenido ' . $usuario . '. Es usuario ' . '\'' . $userState[$id] . '\'' .
-					' su enlace para administrar artículos es: <a href=\'articulos.php?orden=name\'>articulos.php</a>';
+					' <a href=\'articulos.php?orden=name\'>Pulse aquí</a> para gestionar articulos.';
 				break;
 			default: // Usuario no autorizado
 				$id = 3;

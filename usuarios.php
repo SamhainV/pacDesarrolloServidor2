@@ -21,17 +21,18 @@
 		echo '<br>Permisos Actuales: (Campo management) ';
 		echo getPermisos();
 		echo '<br>';
-		echo "<br>Cambiar permisos de la aplicación (campo management)<br>";
+		/*echo "<br>Cambiar permisos de la aplicación (campo management)<br>";*/
 		if (isset($_POST['Cambiar'])) {
 			echo "<br>boton cambiar pulsado... Llamando a la funcion cambiarPermisos()";
 			cambiarPermisos();
 			header("location:usuarios.php");
 		}
 		pintaTablaUsuarios();
+		
 	} else
-		echo '<br>Lo sentimos, pero no tiene permisos de acceso';
+		echo '<br>Lo sentimos, pero no tiene permisos de acceso.';
 
-	echo "<a href='index.php'> Volver al index.php</a>";
+	echo "<a href='index.php'> Volver al inicio.</a>";
 	?>
 </body>
 

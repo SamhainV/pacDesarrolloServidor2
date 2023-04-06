@@ -13,9 +13,9 @@ function pintaTablaUsuarios()
 {
 	// Completar...	
 	$resultado_consulta = getListaUsuarios();
-	echo "
+	echo "<br>
 	<form method='post' action='#'>
-		<input type='submit' name='Cambiar' value='Cambiar'>
+		<input type='submit' name='Cambiar' value='Cambiar permisos'>
 	</form>
 	<br>
 	<table border='1' cellpadding='5' cellspacing='0'>
@@ -47,28 +47,33 @@ function pintaProductos($orden)
 
 
 	$conn = crearConexion();
-	$consulta =	"SELECT product.id, product.name, product.cost, 
-	product.price, product.category_id FROM product order by " . $orden;
+
+	$consulta =	"SELECT product.id, product.name, product.cost,	product.price, category.name as categoria FROM product 
+	inner join category on product.category_id = category.id order by " . $orden;
 	$resultado = mysqli_query($conn, $consulta);
+
 	echo "
-			<h1>Lista de artículos </h1>
+			<!--<h1>Lista de artículos </h1>-->
 			<table border='1' cellpadding='5' cellspacing='0'>
 				<tr>
 					<th><a href='articulos.php?orden=id'>ID</a></th>
 					<th><a href='articulos.php?orden=name'>Nombre</a></th>
 					<th><a href='articulos.php?orden=cost'>Coste</a></th>
 					<th><a href='articulos.php?orden=price'>Precio</a></th>
-					<th><a href='articulos.php?orden=category_id'>Categoria</a></th>
+					<th><a href='articulos.php?orden=categoria'>Categoria</a></th>
 					<th>Acciones</th>
 				</tr>
 				";
-	while ($elementos = mysqli_fetch_array($resultado)) {
+
+	while ($elementos = mysqli_fetch_assoc($resultado)) {
 		echo '<tr>';
 		echo "<td>" . $elementos['id'] . "</td>";
 		echo "<td>" . $elementos['name'] . "</td>";
 		echo "<td>" . $elementos['cost'] . "</td>";
 		echo "<td>" . $elementos['price'] . "</td>";
-		echo "<td>" . $elementos['category_id'] . "</td>";
+		echo "<td>" . $elementos['categoria'] . "</td>";
+
+
 		if ($management = getPermisos() == 1) { /* Si los permisos management están activos */
 			echo "<td>" . "<a href='formArticulos.php?accion=editar'>Editar</a>
 		                   <a href='formArticulos.php?accion=borrar'>Borrar</a>" .
