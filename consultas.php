@@ -114,6 +114,13 @@ function getProducto($ID)
 function getProductos($orden)
 {
 	// Completar...	
+	$conn = crearConexion();
+
+	$consulta =	"SELECT product.id, product.name, product.cost,	product.price, category.name as categoria FROM product 
+	inner join category on product.category_id = category.id order by " . $orden;
+	$resultado = mysqli_query($conn, $consulta);
+	cerrarConexion($conn);
+	return $resultado;
 }
 
 function anadirProducto($nombre, $coste, $precio, $categoria)

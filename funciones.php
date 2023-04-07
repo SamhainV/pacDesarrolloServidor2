@@ -44,25 +44,26 @@ function pintaTablaUsuarios()
 function pintaProductos($orden)
 {
 	// Completar...	
-
+	$resultado = getProductos($orden);
+	/*
 	$conn = crearConexion();
 
 	$consulta =	"SELECT product.id, product.name, product.cost,	product.price, category.name as categoria FROM product 
 	inner join category on product.category_id = category.id order by " . $orden;
 	$resultado = mysqli_query($conn, $consulta);
-
+*/
 	echo "
-			<!--<h1>Lista de artículos </h1>-->
-			<table border='1' cellpadding='5' cellspacing='0'>
-				<tr>
-					<th><a href='articulos.php?orden=id'>ID</a></th>
-					<th><a href='articulos.php?orden=name'>Nombre</a></th>
-					<th><a href='articulos.php?orden=cost'>Coste</a></th>
-					<th><a href='articulos.php?orden=price'>Precio</a></th>
-					<th><a href='articulos.php?orden=categoria'>Categoria</a></th>
-					<th>Acciones</th>
-				</tr>
-				";
+		<!--<h1>Lista de artículos </h1>-->
+		<table border='1' cellpadding='5' cellspacing='0'>
+			<tr>
+				<th><a href='articulos.php?orden=id'>ID</a></th>
+				<th><a href='articulos.php?orden=name'>Nombre</a></th>
+				<th><a href='articulos.php?orden=cost'>Coste</a></th>
+				<th><a href='articulos.php?orden=price'>Precio</a></th>
+				<th><a href='articulos.php?orden=categoria'>Categoria</a></th>
+				<th>Acciones</th>
+			</tr>
+		";
 
 	while ($elementos = mysqli_fetch_assoc($resultado)) {
 		echo '<tr>';
