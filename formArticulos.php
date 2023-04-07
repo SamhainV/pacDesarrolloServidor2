@@ -16,7 +16,7 @@
 	/* Comprobar acceso por usuario con permisos */
 	if (isset($_COOKIE['userLoggedIn'])) {
 		$userAcces = $_COOKIE['userLoggedIn'];
-		echo '<br>Tipo de usuario ' . $userAcces . '<br><br>';
+		echo '<br>Tipo de usuario: ' . $userAcces . '<br><br>';
 		if ($userAcces == 'registrado' || $userAcces == 'autorizado') {
 			$autorizado = true;
 		} else {
@@ -32,36 +32,57 @@
 		if (isset($_GET['accion'])) {
 			$acciones = $_GET['accion']; /* Localizar la accion */
 			if ($acciones == 'annadir') {
-
-				echo "&#9484";
-				for ($i = 0; $i < 10; $i++)
-					echo "&#9472";
-
 				echo "
-			<form action = '#'>
-			<label>&#9474&nbsp&nbsp&nbspNombre </label><input type='text' name='nombre' size='20'><br>&#9474<br>
-			<label>&#9474&nbsp&nbsp&nbspCoste </label><input type='text' name='coste' size='22'><br>&#9474<br>
-			<label>&#9474&nbsp&nbsp&nbspPrecio </label><input type='text' name='precio' size='21'><br>&#9474<br>
-			<label>&#9474&nbsp&nbsp&nbspCategoria </label><input type='text' name='categoria' size='18'><br>&#9474<br>
-			";
-				/*			&#9474&nbsp&nbsp&nbsp<input type='submit' name='sendForm' value='Añadir'>*/
-				echo "&#9474";
-				for ($i = 0; $i < 50; $i++)
-					echo "&nbsp";
-				echo "<input type='submit' name='sendForm' value='Añadir'>
-			</form>
-			";
+					<form action = '#' methos='get'>
+					<label>ID </label><input type='text' name='nombre' size='5' readonly><br><br>
+					<label>Nombre </label><input type='text' name='nombre' size='20'><br><br>
+					<label>Coste </label><input type='text' name='coste' size='12'><br><br>
+					<label>Precio </label><input type='text' name='precio' size='11'><br><br>
+					<label>Categoria:</label>
+					";
+				echo "<select name='categoria'>";
+				$categorias = getCategorias(); /* Optiene las catagorias de la table category */
+				while ($resultado = mysqli_fetch_assoc($categorias))
+					echo "<option>" . $resultado['name'] . "</option>";
+				echo "</select>";
+				echo "
+					<br><br>
+					<input type='submit' name='sendForm' value='Añadir'>
+					<a href='index.php'> Volver al inicio.</a>
+					</form>
+					";
+			} else if ($acciones == 'editar') {
+				/* El $id no se puede editar */
+				echo 'Vamos a editar';
+				editarProducto($id, $nombre, $coste, $precio, $categoria);
+			}
+		}
 
-				echo "&#9492";
-				for ($i = 0; $i < 10; $i++)
-					echo "&#9472";
+		/* 
+		 * Formulario de la acción annadir 
+		 */
+		if (isset($_GET['sendForm'])) {
+			$accion = $_GET['sendForm'];
+
+			$nombre = $_GET['nombre'];
+			$coste = $_GET['coste'];
+			$precio = $_GET['precio'];
+			$categoria = $_GET['categoria'];
+
+			switch ($accion) {
+				case 'annadir':
+					$nombre = $_GET['nombre'];
+					$coste = $_GET['coste'];
+					$precio = $_GET['precio'];
+					$categoria = $_GET['categoria'];
+					anadirProducto($nombre, $coste, $precio, $categoria);
+					break;
+				default:
+					break;
 			}
 		}
 	}
-
 	?>
-
-
 </body>
 
 </html>

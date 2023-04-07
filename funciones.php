@@ -45,7 +45,6 @@ function pintaProductos($orden)
 {
 	// Completar...	
 
-
 	$conn = crearConexion();
 
 	$consulta =	"SELECT product.id, product.name, product.cost,	product.price, category.name as categoria FROM product 

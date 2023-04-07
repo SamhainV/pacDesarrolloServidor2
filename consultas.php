@@ -62,7 +62,7 @@ function getPermisos()
 }
 
 function cambiarPermisos()
-{	
+{
 	// Completar...	
 	$permisos = getPermisos();
 	$conn = crearConexion();
@@ -81,6 +81,11 @@ function cambiarPermisos()
 function getCategorias()
 {
 	// Completar...	
+	$conn = crearConexion();
+	$consulta =	"select * from category";
+	$resultado = mysqli_query($conn, $consulta);
+	cerrarConexion($conn);
+	return $resultado;
 }
 
 function getListaUsuarios()
@@ -98,6 +103,11 @@ function getListaUsuarios()
 function getProducto($ID)
 {
 	// Completar...	
+	$conexion = crearConexion();
+	$consulta = "SELECT id FROM category WHERE name='$ID'";
+	$resultado = mysqli_fetch_assoc(mysqli_query($conexion, $consulta));
+	cerrarConexion($conexion);
+	return $resultado;
 }
 
 
@@ -106,10 +116,33 @@ function getProductos($orden)
 	// Completar...	
 }
 
-
 function anadirProducto($nombre, $coste, $precio, $categoria)
 {
 	// Completar...	
+	/*
+	 * Aquí transformamos el nombre de la catagoria recibido ($categoria->PANTALON,CAMISA,JERSEY,CHAQUETA)
+	 * a su correspondiente ID de la tabla category.
+	 * PANTALÓN 1
+	 * CAMISA 2
+	 * JERSEY 3
+	 * CHAQUETA 4
+	*/
+	$id_categoria = getProducto($categoria);
+	$categoria = $id_categoria['id'];
+
+	/*
+	 * A continución añadimos el producto en la base de datos.
+	*/
+	$conexion = crearConexion();
+	$consulta = "INSERT INTO product (Name, Cost, Price, Category_ID) 
+				VALUES ('$nombre' , '$coste' , '$precio' , '$categoria');";
+
+	$resultado = mysqli_query($conexion, $consulta);
+
+	if ($resultado)
+		echo "<br>Registro agregado correctamente. ";
+
+	cerrarConexion($conexion);
 }
 
 
@@ -122,4 +155,10 @@ function borrarProducto($id)
 function editarProducto($id, $nombre, $coste, $precio, $categoria)
 {
 	// Completar...	
+	echo '<br>productos a editar: ';
+	echo '<br>ID No se puede editar.';
+	echo '<br>Nombre '.$nombre;
+	echo '<br>Coste '. $coste;
+	echo '<br>Precio '. $precio;
+	echo '<br>Categoria '. $categoria;
 }
