@@ -81,10 +81,10 @@ function cambiarPermisos()
 function getCategorias()
 {
 	// Completar...	
-	$conn = crearConexion();
-	$consulta =	"select * from category";
-	$resultado = mysqli_query($conn, $consulta);
-	cerrarConexion($conn);
+	$conexion = crearConexion();
+	$consulta =	"select id, name from category";
+	$resultado = mysqli_fetch_assoc(mysqli_query($conexion, $consulta));
+	cerrarConexion($conexion);
 	return $resultado;
 }
 
@@ -99,12 +99,11 @@ function getListaUsuarios()
 	return $resultado;
 }
 
-
 function getProducto($ID)
 {
 	// Completar...	
 	$conexion = crearConexion();
-	$consulta = "SELECT id FROM category WHERE name='$ID'";
+	$consulta = "SELECT name, cost, price, category_id  FROM product WHERE name='$ID'";
 	$resultado = mysqli_fetch_assoc(mysqli_query($conexion, $consulta));
 	cerrarConexion($conexion);
 	return $resultado;
@@ -134,15 +133,17 @@ function anadirProducto($nombre, $coste, $precio, $categoria)
 	 * JERSEY 3
 	 * CHAQUETA 4
 	*/
-	$id_categoria = getProducto($categoria);
-	$categoria = $id_categoria['id'];
+	/*$id_categoria = getProducto($categoria);*/
+	$resultado = getCategorias();
+	/*var_dump($resultado);*/
+	$categoria = $resultado['id'];
 
 	/*
 	 * A continución añadimos el producto en la base de datos.
 	*/
 	$conexion = crearConexion();
 	$consulta = "INSERT INTO product (Name, Cost, Price, Category_ID) 
-				VALUES ('$nombre' , '$coste' , '$precio' , '$categoria');";
+				VALUES ('$nombre' , '$coste' , '$precio' , $categoria);";
 
 	$resultado = mysqli_query($conexion, $consulta);
 

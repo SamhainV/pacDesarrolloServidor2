@@ -73,10 +73,11 @@ function pintaProductos($orden)
 		echo "<td>" . $elementos['price'] . "</td>";
 		echo "<td>" . $elementos['categoria'] . "</td>";
 
-
+		$id = $elementos['id'];
+		
 		if ($management = getPermisos() == 1) { /* Si los permisos management están activos */
-			echo "<td>" . "<a href='formArticulos.php?accion=editar'>Editar</a>
-		                   <a href='formArticulos.php?accion=borrar'>Borrar</a>" .
+			echo "<td>" . "<a href='formArticulos.php?accion=editar&id=$id'>Editar</a>
+		                   <a href='formArticulos.php?accion=borrar&id=$id'>Borrar</a>" .
 				"</td>";
 		} else {
 			echo "<td>Permisos Editar/Borrar Desactivados. Management " . ($management ? '1' : '0') . "</td>";

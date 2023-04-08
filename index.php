@@ -19,9 +19,9 @@
 
 
 	<?php
-	// http://localhost/paceservidor/pacDesarrolloServidor2/
-
-
+	/*
+	http://localhost/pacServidor/pacDesarrolloServidor2/
+	*/
 	include "consultas.php";
 
 	if (isset($_POST['sendForm'])) {

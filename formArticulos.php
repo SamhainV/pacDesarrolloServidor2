@@ -31,30 +31,12 @@
 	if ($autorizado) {
 		if (isset($_GET['accion'])) {
 			$acciones = $_GET['accion']; /* Localizar la accion */
-			if ($acciones == 'annadir') {
-				echo "
-					<form action = '#' methos='get'>
-					<label>ID </label><input type='text' name='nombre' size='5' readonly><br><br>
-					<label>Nombre </label><input type='text' name='nombre' size='20'><br><br>
-					<label>Coste </label><input type='text' name='coste' size='12'><br><br>
-					<label>Precio </label><input type='text' name='precio' size='11'><br><br>
-					<label>Categoria:</label>
-					";
-				echo "<select name='categoria'>";
-				$categorias = getCategorias(); /* Optiene las catagorias de la table category */
-				while ($resultado = mysqli_fetch_assoc($categorias))
-					echo "<option>" . $resultado['name'] . "</option>";
-				echo "</select>";
-				echo "
-					<br><br>
-					<input type='submit' name='sendForm' value='Añadir'>
-					<a href='index.php'> Volver al inicio.</a>
-					</form>
-					";
-			} else if ($acciones == 'editar') {
+			if ($acciones == 'editar') {
 				/* El $id no se puede editar */
-				echo 'Vamos a editar';
-				editarProducto($id, $nombre, $coste, $precio, $categoria);
+				echo '<br>Vamos a editar el id ' . $_GET['id'];
+				/*editarProducto($id, $nombre, $coste, $precio, $categoria);*/
+			} else if ($acciones == 'borrar') {
+				echo '<br>Vamos a borrar el id '. $_GET['id'];
 			}
 		}
 
@@ -68,14 +50,15 @@
 			$coste = $_GET['coste'];
 			$precio = $_GET['precio'];
 			$categoria = $_GET['categoria'];
-
+			echo 'la accion es ' . $accion;
 			switch ($accion) {
-				case 'annadir':
+				case 'Añadir':
 					$nombre = $_GET['nombre'];
 					$coste = $_GET['coste'];
 					$precio = $_GET['precio'];
 					$categoria = $_GET['categoria'];
 					anadirProducto($nombre, $coste, $precio, $categoria);
+					echo 'la accion fue ' . $accion;
 					break;
 				default:
 					break;
