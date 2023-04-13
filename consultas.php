@@ -77,23 +77,6 @@ function cambiarPermisos()
 	cerrarConexion($conn);
 }
 
-
-
-function asociativo()
-{
-	$conexion = crearConexion();
-	$consulta =     "select id, name from category";
-	$resultado = mysqli_query($conexion, $consulta);
-	$datos = array();
-	while ($valores = mysqli_fetch_assoc($resultado))
-		$datos[$valores['id']] = $valores['name'];
-
-	cerrarConexion($conexion);
-	return $datos;
-}
-
-
-
 function getCategorias()
 {
 	// Completar...	
