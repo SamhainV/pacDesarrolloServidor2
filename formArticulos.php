@@ -35,42 +35,22 @@
 			$acciones = $_GET['accion']; // Localizar la acción.
 
 			if ($acciones == 'editar') {
-				$id = $_GET['id'];
-				$datos = getProducto($id);
-				$nombre = $datos['name'];
-				$coste = $datos['cost'];
-				$precio = $datos['price'];
-				$categoria = $datos['category_id'];
-				// Etiquetas e inputs del formulario.
-				echo "
-				<form action = '#' method = 'get'>
-					<label>ID </label>		<input type = 'text' name = 'id' size = '5' value = '$id' readonly>	<br>
-					<label>Nombre </label>	<input type = 'text' name = 'nombre' size = '20' value = '$nombre'>	<br>
-					<label>Coste </label>	<input type = 'text' name = 'coste' size = '12' value = '$coste'>	<br>
-					<label>Precio </label>	<input type = 'text' name = 'precio' size = '11' value = '$precio'>	<br>
-				";
-
-				pintaCategorias($categoria);
-
-				echo "
-					<input type = 'submit' name = 'sendForm' value = 'Actualizar'>
-				</form>
-			<br>
-			<a href = 'index.php'> Volver al inicio.</a>
-			";
+				/*formulario($id, $nombre, $coste, $precio, $categoria, "Editar");*/
+				formulario("Editar");
 			} else if ($acciones == 'annadir') {
-				echo "<br>Accion Añadir!!";
+				formulario("Añadir");
+				/*echo "<br>Accion Añadir!!";*/
+				/*formulario($id, $nombre, $coste, $precio, $categoria, "Añadir");*/
 			} else if ($acciones == 'borrar') {
 				echo "<br>Accion Borrar!!";
+				formulario("Borrar");
 			}
-			 
 		}
 
 		/* 
 		 * Formulario de la acción annadir 
 		 */
 		if (isset($_GET['sendForm'])) {
-			$id = $_GET['id'];
 			$accion = $_GET['sendForm'];
 			$nombre = $_GET['nombre'];
 			$coste = $_GET['coste'];
@@ -78,14 +58,66 @@
 			$categoria = $_GET['categoria'];
 			echo 'la accion es ' . $accion;
 			switch ($accion) {
-				case 'Actualizar':
-					echo "<br>Accion Actualizar!!";
+				case 'Editar':
+					$id = $_GET['id'];
 					$consulta_realizada = editarProducto($id, $nombre, $coste, $precio, $categoria);
+					if ($consulta_realizada) echo "<h2>Producto actualizado de forma satisfactoria</h2>";
+					else echo "<br>Error en la Actualización<br>";
+					break;
+				case 'Añadir':
+					echo "<br>Acción añadir del subformulario<br>";
+					if (anadirProducto($nombre, $coste, $precio, $categoria))
+						echo "<h2>Producto añadido de forma satisfactoria</h2>";
+					else echo "<br>Error añadiendo registro<br>";
+					break;
+				case 'Borrar':
+					$id = $_GET['id'];
+					echo "<br>Acción borrar del subformulario<br>";
+					if (borrarProducto($id))
+						echo "<h2>Producto eliminado de forma satisfactoria</h2>";
+					else echo "<br>Error eliminando registro<br>";
 					break;
 				default:
 					break;
 			}
 		}
+		echo "<a href = 'articulos.php'> Volver al listado de articulos.</a>";
+	}
+
+	function formulario($tipo)
+	{
+
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+			$datos = getProducto($id);
+			$nombre = $datos['name'];
+			$coste = $datos['cost'];
+			$precio = $datos['price'];
+			$categoria = $datos['category_id'];
+		} else {
+			$id = NULL;
+			$nombre = "";
+			$coste = "";
+			$precio = "";
+			$categoria = "PANTALÓN";
+		}
+
+		// Etiquetas e inputs del formulario.
+		if ($tipo == 'Borrar') $readOnly = 'readonly';
+		else $readOnly = '';
+		echo "	<form action = '#' method = 'get'>";
+		if ($id) echo "<label>ID </label>		<input type = 'text' name = 'id' size = '5' value = '$id' readonly>	<br>";
+		echo "         <label>Nombre </label>	<input type = 'text' name = 'nombre' size = '20' value = '$nombre' $readOnly>	<br>
+					   <label>Coste </label>	<input type = 'text' name = 'coste' size = '12' value = '$coste' $readOnly>	<br>
+					   <label>Precio </label>	<input type = 'text' name = 'precio' size = '11' value = '$precio' $readOnly><br>
+			";
+		
+		pintaCategorias($categoria);
+		echo "
+					   <input type = 'submit' name = 'sendForm' value = '$tipo'>
+				</form>
+			<br>
+			";
 	}
 	?>
 </body>

@@ -150,23 +150,26 @@ function anadirProducto($nombre, $coste, $precio, $categoria)
 	 * JERSEY 3
 	 * CHAQUETA 4
 	*/
-	/*$id_categoria = getProducto($categoria);*/
-	$resultado = getCategorias();
-	/*var_dump($resultado);*/
-	$categoria = $resultado['id'];
+
+	/* Array asociativo usado para asociar el número de la categora (pasado por parámetro) con su correspondiente valor.
+	 * $categoria = 1 = PANTALÓN.
+	 * $categoria = 2 = CAMISA.
+	 * $categoria = 3 = JERSEY.
+	 * $categoria = 4 = CHAQUETA.
+	*/
+	$prendas = ["PANTALÓN" => 1, "CAMISA" => 2, "JERSEY" => 3, "CHAQUETA" => 4];
 
 	/*
 	 * A continución añadimos el producto en la base de datos.
 	*/
 	$conexion = crearConexion();
 	$consulta = "INSERT INTO product (Name, Cost, Price, Category_ID) 
-				VALUES ('$nombre' , '$coste' , '$precio' , $categoria);";
+				VALUES ('$nombre' , '$coste' , '$precio' , $prendas[$categoria]);";
 
 	$resultado = mysqli_query($conexion, $consulta);
 
-	if ($resultado)
-		echo "<br>Registro agregado correctamente. ";
-
+	
+	return $resultado;
 	cerrarConexion($conexion);
 }
 
@@ -174,6 +177,14 @@ function anadirProducto($nombre, $coste, $precio, $categoria)
 function borrarProducto($id)
 {
 	// Completar...	
+	// Creamos la conexión.
+	$conn = crearConexion();
+	// Acción a realizar
+	$accion = "DELETE FROM product WHERE ID = $id";
+	// Ejecutamos la acción
+	$resultado = mysqli_query($conn, $accion);
+	cerrarConexion($conn);
+	return $resultado;
 }
 
 
