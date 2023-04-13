@@ -24,15 +24,7 @@
 	*/
 	include "consultas.php";
 
-	/***********************/
-	/* Tareas y ejercicios 
-	$datos = asociativo();
-	foreach ($datos as $dat)
-		echo '<br>Valores ' . $dat;
-	echo '<br>';
-	echo '<br>datos ' . $datos[1];
-	var_dump($datos);*/
-	/***********************/
+	
 	if (isset($_GET['sendForm'])) {
 
 		$usuario = htmlentities($_GET['userName']);

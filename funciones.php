@@ -6,6 +6,33 @@ include "consultas.php";
 function pintaCategorias($defecto)
 {
 	// Completar...	
+	/*
+ 	 * En este bloque de código llamamos a la funcio getCategorias(), la cual devuelve una tabla con todas las categorias.
+ 	 * Las va insertando en las opciones del SELECT y activa la que coincida con la categoría que estamos editando.
+ 	 *********************************************************************************************************************
+	 *	 
+	 *
+	 *
+	 * Array asociativo usado para validar que categoria debe de estar SELECTED en el SELECT del formulario.
+	 */
+	$prendas = [1 => "PANTALÓN", 2 => "CAMISA", 3 => "JERSEY", 4 => "CHAQUETA"];
+	echo "
+		<label> Categoria </label>
+		<select name = 'categoria'>
+	";
+	$categorias = getCategorias(); /* Optiene las catagorias de la table category */
+	while ($resultado = mysqli_fetch_assoc($categorias)) {
+		$nombreCategoria = $resultado['name'];
+		if ($nombreCategoria == $prendas[$defecto]) // $defecto contiene el valor numerico correspondiente a la categoría.
+			echo "<option selected> $nombreCategoria </option>";
+		else
+			echo "<option> $nombreCategoria </option>";
+	}
+	echo "	
+		</select>
+		<br>
+		<br>
+	";
 }
 
 
@@ -14,7 +41,7 @@ function pintaTablaUsuarios()
 	// Completar...	
 	$resultado_consulta = getListaUsuarios();
 	echo "<br>
-	<form method='post' action='#'>
+	<form method='get' action='#'>
 		<input type='submit' name='Cambiar' value='Cambiar permisos'>
 	</form>
 	<br>
@@ -74,7 +101,7 @@ function pintaProductos($orden)
 		echo "<td>" . $elementos['categoria'] . "</td>";
 
 		$id = $elementos['id'];
-		
+
 		if ($management = getPermisos() == 1) { /* Si los permisos management están activos */
 			echo "<td>" . "<a href='formArticulos.php?accion=editar&id=$id'>Editar</a>
 		                   <a href='formArticulos.php?accion=borrar&id=$id'>Borrar</a>" .

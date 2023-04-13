@@ -22,7 +22,7 @@
 		echo getPermisos();
 		echo '<br>';
 		/*echo "<br>Cambiar permisos de la aplicación (campo management)<br>";*/
-		if (isset($_POST['Cambiar'])) {
+		if (isset($_GET['Cambiar'])) {
 			echo "<br>boton cambiar pulsado... Llamando a la funcion cambiarPermisos()";
 			cambiarPermisos();
 			header("location:usuarios.php");
