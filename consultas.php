@@ -78,14 +78,31 @@ function cambiarPermisos()
 }
 
 
+
+function asociativo()
+{
+	$conexion = crearConexion();
+	$consulta =     "select id, name from category";
+	$resultado = mysqli_query($conexion, $consulta);
+	$datos = array();
+	while ($valores = mysqli_fetch_assoc($resultado))
+		$datos[$valores['id']] = $valores['name'];
+
+	cerrarConexion($conexion);
+	return $datos;
+}
+
+
+
 function getCategorias()
 {
 	// Completar...	
 	$conexion = crearConexion();
 	$consulta =	"select id, name from category";
-	$resultado = mysqli_fetch_assoc(mysqli_query($conexion, $consulta));
+	$valores = mysqli_query($conexion, $consulta);
+
 	cerrarConexion($conexion);
-	return $resultado;
+	return $valores;
 }
 
 function getListaUsuarios()
@@ -103,7 +120,7 @@ function getProducto($ID)
 {
 	// Completar...	
 	$conexion = crearConexion();
-	$consulta = "SELECT name, cost, price, category_id  FROM product WHERE name='$ID'";
+	$consulta = "SELECT name, cost, price, category_id  FROM product WHERE id=$ID";
 	$resultado = mysqli_fetch_assoc(mysqli_query($conexion, $consulta));
 	cerrarConexion($conexion);
 	return $resultado;
@@ -163,10 +180,21 @@ function borrarProducto($id)
 function editarProducto($id, $nombre, $coste, $precio, $categoria)
 {
 	// Completar...	
-	echo '<br>productos a editar: ';
-	echo '<br>ID No se puede editar.';
-	echo '<br>Nombre '.$nombre;
-	echo '<br>Coste '. $coste;
-	echo '<br>Precio '. $precio;
-	echo '<br>Categoria '. $categoria;
+
+	$conn = crearConexion();
+
+	$prendas = ["PANTALÓN" => 1, "CAMISA" => 2, "JERSEY" => 3,"CHAQUETA" => 4];
+
+	echo "<br>funcion editar producto<br>";
+	echo "<br>id " .$id;
+	echo "<br>id " .$nombre;
+	echo "<br>id " .$coste;
+	echo "<br>id " .$precio;
+	echo "<br>id " .$categoria;
+
+	$mysql_query = "UPDATE product SET name = '$nombre', cost = $coste, price = $precio, category_id = $prendas[$categoria] WHERE id = $id";
+	$resultado = mysqli_query($conn, $mysql_query);
+
+	echo "<br>" . $mysql_query. " resultado de la consulta " . $resultado;
+	cerrarConexion($conn);
 }

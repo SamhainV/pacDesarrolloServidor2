@@ -9,7 +9,7 @@
 
 <body>
 
-	<form method="post" action="#">
+	<form method="get" action="#">
 		Indique su nombre de usuario: <input type="text" name="userName">
 		<br>
 		Indique su Email: <input type="email" name="userMail" size="30">
@@ -24,10 +24,19 @@
 	*/
 	include "consultas.php";
 
-	if (isset($_POST['sendForm'])) {
+	/***********************/
+	/* Tareas y ejercicios 
+	$datos = asociativo();
+	foreach ($datos as $dat)
+		echo '<br>Valores ' . $dat;
+	echo '<br>';
+	echo '<br>datos ' . $datos[1];
+	var_dump($datos);*/
+	/***********************/
+	if (isset($_GET['sendForm'])) {
 
-		$usuario = htmlentities($_POST['userName']);
-		$email = htmlentities($_POST['userMail']);
+		$usuario = htmlentities($_GET['userName']);
+		$email = htmlentities($_GET['userMail']);
 
 		$userKind = tipoUsuario($usuario, $email);
 
