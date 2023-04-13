@@ -58,7 +58,12 @@
 			<br>
 			<a href = 'index.php'> Volver al inicio.</a>
 			";
+			} else if ($acciones == 'annadir') {
+				echo "<br>Accion Añadir!!";
+			} else if ($acciones == 'borrar') {
+				echo "<br>Accion Borrar!!";
 			}
+			 
 		}
 
 		/* 
@@ -77,14 +82,6 @@
 					echo "<br>Accion Actualizar!!";
 					$consulta_realizada = editarProducto($id, $nombre, $coste, $precio, $categoria);
 					break;
-					/*		case 'Añadir':
-					$nombre = $_GET['nombre'];
-					$coste = $_GET['coste'];
-					$precio = $_GET['precio'];
-					$categoria = $_GET['categoria'];
-					anadirProducto($nombre, $coste, $precio, $categoria);
-					echo 'la accion fue ' . $accion;
-					break;*/
 				default:
 					break;
 			}
