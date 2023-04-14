@@ -42,7 +42,7 @@
 				/*echo "<br>Accion Añadir!!";*/
 				/*formulario($id, $nombre, $coste, $precio, $categoria, "Añadir");*/
 			} else if ($acciones == 'borrar') {
-				echo "<br>Accion Borrar!!";
+				/*echo "<br>Accion Borrar!!";*/
 				formulario("Borrar");
 			}
 		}
@@ -56,7 +56,7 @@
 			$coste = $_GET['coste'];
 			$precio = $_GET['precio'];
 			$categoria = $_GET['categoria'];
-			echo 'la accion es ' . $accion;
+			/*echo 'la accion es ' . $accion;*/
 			switch ($accion) {
 				case 'Editar':
 					$id = $_GET['id'];

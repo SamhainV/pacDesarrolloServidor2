@@ -7,7 +7,7 @@ function pintaCategorias($defecto)
 {
 	// Completar...	
 	/*
- 	 * En este bloque de código llamamos a la funcio getCategorias(), la cual devuelve una tabla con todas las categorias.
+ 	 * En este bloque de código llamamos a la función getCategorias(), la cual devuelve una tabla con todas las categorias.
  	 * Las va insertando en las opciones del SELECT y activa la que coincida con la categoría que estamos editando.
  	 *********************************************************************************************************************
 	 *	 
@@ -67,18 +67,11 @@ function pintaTablaUsuarios()
 	echo "</table>";
 }
 
-/* ésta es. mirar minuto 37. getProductos() *************/
 function pintaProductos($orden)
 {
 	// Completar...	
 	$resultado = getProductos($orden);
-	/*
-	$conn = crearConexion();
 
-	$consulta =	"SELECT product.id, product.name, product.cost,	product.price, category.name as categoria FROM product 
-	inner join category on product.category_id = category.id order by " . $orden;
-	$resultado = mysqli_query($conn, $consulta);
-*/
 	echo "
 		<!--<h1>Lista de artículos </h1>-->
 		<table border='1' cellpadding='5' cellspacing='0'>

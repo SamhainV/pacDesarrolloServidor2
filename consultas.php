@@ -33,7 +33,6 @@ function tipoUsuario($nombre, $correo)
 function esSuperadmin($nombre, $correo)
 {
 	// Completar...
-	// Completar...
 	$conn = crearConexion();
 	$consulta =
 		"SELECT user.id FROM user INNER JOIN setup ON 
@@ -58,14 +57,14 @@ function getPermisos()
 	$consulta = "SELECT management FROM setup";
 	$resultado = mysqli_fetch_assoc(mysqli_query($conn, $consulta));
 	cerrarConexion($conn);
-	return $resultado["management"];
+	return $resultado['management'];
 }
 
 function cambiarPermisos()
 {
 	// Completar...	
-	$permisos = getPermisos();
 	$conn = crearConexion();
+	$permisos = getPermisos();
 	if (($permisos == 1)) {
 		$consulta = "UPDATE setup SET management  = 0";
 	} else if (($permisos == 0)) {
@@ -151,9 +150,9 @@ function anadirProducto($nombre, $coste, $precio, $categoria)
 
 	$resultado = mysqli_query($conexion, $consulta);
 
-	
-	return $resultado;
 	cerrarConexion($conexion);
+	return $resultado;
+	
 }
 
 

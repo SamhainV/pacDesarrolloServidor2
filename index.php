@@ -32,7 +32,7 @@
 
 		$userKind = tipoUsuario($usuario, $email);
 
-		$userState = ["superadmin", "registrado", "autorizado", "No Autorizado"];
+		$userState = ["superadmin", "registrado", "autorizado", "no registrado en el sistema."];
 		switch ($userKind) {
 			case $userState[0]: // SuperAdmin
 				$id = 0;
@@ -43,7 +43,6 @@
 				$id = 1;
 				echo '<br> Bienvenido ' . $usuario . '. Es usuario ' . '\'' . $userState[$id] . '\'' .
 					', pero no tiene permisos de acceso a articulos.php.';
-				//echo '<br>Su enlace para administrar artículos es: <a href=\'articulos.php\'>articulos.php</a>';
 				break;
 			case $userState[2]: // Autorizado
 				$id = 2;
@@ -52,11 +51,11 @@
 				break;
 			default: // Usuario no autorizado
 				$id = 3;
-				echo "<br>Atención!!! Usted es un usuario '" . $userState[$id] . '\'';
+				echo "<br>Atención!!! Usted es un usuario " . $userState[$id];
 				break;
 		}
 
-		setcookie("userLoggedIn", $userState[$id], time() + 3600); // valor 36 = 0.6 minutos. Usar para debug.
+		setcookie("userLoggedIn", $userState[$id], time() + 36); // valor 36 = 0.6 minutos. Usar para debug.
 	}
 
 	?>
